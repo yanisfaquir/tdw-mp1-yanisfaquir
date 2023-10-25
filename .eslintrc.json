@@ -1,8 +1,6 @@
 {
-    "extends": "next",
-    "rules": {
-        "comma-dangle": "off" //tirar virgulas do final dos objetos
-        
-    }
+  "extends": "next",
+  "rules": {
+    "comma-dangle": "off" //tirar virgulas do final dos objetos
   }
-  
+}
