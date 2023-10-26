@@ -6,4 +6,11 @@ module.exports = {
     unoptimized: true,
   },
   assetPrefix: '/',
+  images: {
+    unoptimized: true
+  }, 
+  distDir: 'out',
+  output: 'export'
+
+
 };
