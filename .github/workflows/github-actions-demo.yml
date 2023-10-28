@@ -7,7 +7,7 @@ on:
   repository_dispatch:
     types: [contentful.deploy]
   schedule:
-    - cron: '50 19 * * 1-5'
+    - cron: '55 19 * * 1-5'
     # O cron está configurado para executar às 00:00 (UTC) de segunda a sexta-feira (1-5)
 
 jobs:
@@ -48,6 +48,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Run Eslint
+        run: npm run lint
+        continue-on-error: false
+      - name: Build
+        run: npm run build
+      - name: Deploy to Netlify
+        run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod
+
+  deploy-schedule:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
