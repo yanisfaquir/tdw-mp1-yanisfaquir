@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
-      - '*'
   repository_dispatch:
     types: [contentful.deploy]
+  schedule:
+    - cron: '50 19 * * 1-5'
+    # O cron está configurado para executar às 00:00 (UTC) de segunda a sexta-feira (1-5)
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -34,18 +37,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Install dependencies
         run: npm install
-
       - name: Run Eslint
         run: npm run lint
         continue-on-error: false
-
-      # - name: Run Tests
-      #   run: npm run test
-      #   continue-on-error: false
-
       - name: Build
         run: npm run build
 
@@ -55,31 +51,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Install dependencies
         run: npm install
-
       - name: Run Eslint
         run: npm run lint
         continue-on-error: false
-
-      # - name: Run Tests
-      #   run: npm run test
-      #   continue-on-error: false
-
       - name: Build
         run: npm run build
-
       - name: Deploy to Netlify
         run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod
-
-
-  # schedule-deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check current time
-  #       run: echo "Current time is $((($(date +\%H)*60)+$(date +\%M)))" # Usamos \% para escapar o '%' neste contexto
-
-  #     - name: Deploy to Netlify
-  #       if: ${{ steps.check-current-time.outputs.current-time }} == 0 # Verifica se é meia-noite
-  #       run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod
