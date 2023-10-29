@@ -7,7 +7,7 @@ on:
   repository_dispatch:
     types: [contentful.deploy]
   schedule:
-    - cron: '55 19 * * 1-5'
+    - cron: '00 00 * * 1-5'
     # O cron está configurado para executar às 00:00 (UTC) de segunda a sexta-feira (1-5)
 
 jobs:
