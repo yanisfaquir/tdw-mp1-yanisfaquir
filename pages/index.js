@@ -1,4 +1,3 @@
-import React from 'react';
 import Container from '../components/container';
 import MoreStories from '../components/more-stories';
 import HeroPost from '../components/hero-post';
@@ -15,8 +14,7 @@ export default function Index({ preview, allPosts }) {
     <>
       <Layout preview={preview}>
         <Head>
-          {/* <title>Next.js Blog Example with {CMS_NAME}</title> */}
-          <title>Next.js Blog Example with</title>
+          <title>Next.js Blog Example with {CMS_NAME}</title>
         </Head>
         <Container>
           <Intro />
