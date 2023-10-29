@@ -7,10 +7,8 @@ module.exports = {
   },
   assetPrefix: '/',
   images: {
-    unoptimized: true
-  }, 
+    unoptimized: true,
+  },
   distDir: 'out',
-  output: 'export'
-
-
+  output: 'export',
 };
